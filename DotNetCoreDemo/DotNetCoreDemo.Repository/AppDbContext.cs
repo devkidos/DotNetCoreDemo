@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using DotNetCoreDemo.Entities;
 using DotNetCoreDemo.Repository.Extensions;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNetCoreDemo.Repository
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -19,6 +20,7 @@ namespace DotNetCoreDemo.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();
         }
     }
