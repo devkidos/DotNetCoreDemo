@@ -5,6 +5,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using DotNetCoreDemo.Entities;
+using DotNetCoreDemo.Repository.Contract;
+using DotNetCoreDemo.Service.Contract;
 using DotNetCoreDemo.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -21,17 +24,30 @@ namespace DotNetCoreDemo.API.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly IEmployeeService employeeService;
 
-        public EmployeeController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public EmployeeController(
+            UserManager<IdentityUser> userManager, 
+            SignInManager<IdentityUser> signInManager,
+            IEmployeeService employeeService)
         { 
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.employeeService = employeeService;
         } 
 
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             return userManager.Users.Select(u => u.UserName).ToArray();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("GetList")]
+        public ActionResult<IEnumerable<Employee>> GetList()
+        {
+            return employeeService.GetAllEmployee().ToList();
         }
 
         [HttpPost]

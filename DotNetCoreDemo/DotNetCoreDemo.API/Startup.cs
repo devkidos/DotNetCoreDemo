@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DotNetCoreDemo.Repository;
+using DotNetCoreDemo.Repository.Contract;
+using DotNetCoreDemo.Repository.Repositories;
+using DotNetCoreDemo.Service.Contract;
+using DotNetCoreDemo.Service.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +34,11 @@ namespace DotNetCoreDemo.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DotNetCoreDB")));
+
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                     .AddEntityFrameworkStores<AppDbContext>()

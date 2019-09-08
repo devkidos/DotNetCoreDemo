@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotNetCoreDemo.Repository\DotNetCoreDemo.Repository.csproj" />
+    <ProjectReference Include="..\DotNetCoreDemo.Service\DotNetCoreDemo.Service.csproj" />
     <ProjectReference Include="..\DotNetCoreDemo.ViewModel\DotNetCoreDemo.ViewModel.csproj" />
   </ItemGroup>
 
